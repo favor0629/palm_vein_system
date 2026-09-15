@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/favor/PalmVeinSystem/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/include -I/home/favor/PalmVeinSystem/src -isystem /usr/include/opencv4 -isystem /usr/include/libcamera -isystem /usr/include/aarch64-linux-gnu/qt6/QtWidgets -isystem /usr/include/aarch64-linux-gnu/qt6 -isystem /usr/include/aarch64-linux-gnu/qt6/QtCore -isystem /usr/lib/aarch64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/aarch64-linux-gnu/qt6/QtGui -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/PalmVeinSystem.dir/PalmVeinSystem_autogen/mocs_compilation.cpp.o -c /home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/mocs_compilation.cpp",
+  "file": "/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/mocs_compilation.cpp",
+  "output": "CMakeFiles/PalmVeinSystem.dir/PalmVeinSystem_autogen/mocs_compilation.cpp.o"
+},
+{
+  "directory": "/home/favor/PalmVeinSystem/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/include -I/home/favor/PalmVeinSystem/src -isystem /usr/include/opencv4 -isystem /usr/include/libcamera -isystem /usr/include/aarch64-linux-gnu/qt6/QtWidgets -isystem /usr/include/aarch64-linux-gnu/qt6 -isystem /usr/include/aarch64-linux-gnu/qt6/QtCore -isystem /usr/lib/aarch64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/aarch64-linux-gnu/qt6/QtGui -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/PalmVeinSystem.dir/src/main.cpp.o -c /home/favor/PalmVeinSystem/src/main.cpp",
+  "file": "/home/favor/PalmVeinSystem/src/main.cpp",
+  "output": "CMakeFiles/PalmVeinSystem.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/favor/PalmVeinSystem/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/include -I/home/favor/PalmVeinSystem/src -isystem /usr/include/opencv4 -isystem /usr/include/libcamera -isystem /usr/include/aarch64-linux-gnu/qt6/QtWidgets -isystem /usr/include/aarch64-linux-gnu/qt6 -isystem /usr/include/aarch64-linux-gnu/qt6/QtCore -isystem /usr/lib/aarch64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/aarch64-linux-gnu/qt6/QtGui -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/PalmVeinSystem.dir/src/ui/MainWindow.cpp.o -c /home/favor/PalmVeinSystem/src/ui/MainWindow.cpp",
+  "file": "/home/favor/PalmVeinSystem/src/ui/MainWindow.cpp",
+  "output": "CMakeFiles/PalmVeinSystem.dir/src/ui/MainWindow.cpp.o"
+},
+{
+  "directory": "/home/favor/PalmVeinSystem/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/include -I/home/favor/PalmVeinSystem/src -isystem /usr/include/opencv4 -isystem /usr/include/libcamera -isystem /usr/include/aarch64-linux-gnu/qt6/QtWidgets -isystem /usr/include/aarch64-linux-gnu/qt6 -isystem /usr/include/aarch64-linux-gnu/qt6/QtCore -isystem /usr/lib/aarch64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/aarch64-linux-gnu/qt6/QtGui -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/PalmVeinSystem.dir/src/camera/CameraManager.cpp.o -c /home/favor/PalmVeinSystem/src/camera/CameraManager.cpp",
+  "file": "/home/favor/PalmVeinSystem/src/camera/CameraManager.cpp",
+  "output": "CMakeFiles/PalmVeinSystem.dir/src/camera/CameraManager.cpp.o"
+}
+]

@@ -1,0 +1,17 @@
+# ninja log v6
+7888	11059	1789489702445214369	PalmVeinSystem	afa6c9d2e19a5659
+157	7887	1789489694718400304	CMakeFiles/PalmVeinSystem.dir/src/main.cpp.o	ad61e4976487f2fb
+548	13644	1789489460829082377	CMakeFiles/PalmVeinSystem.dir/src/camera/CameraManager.cpp.o	8fe33d1d0f7f6332
+14	157	1789489694574436838	PalmVeinSystem_autogen/timestamp	ce9e1146c42252da
+14	157	1789489694574436838	PalmVeinSystem_autogen/mocs_compilation.cpp	ce9e1146c42252da
+545	13523	1789489460824952137	CMakeFiles/PalmVeinSystem.dir/src/ui/MainWindow.cpp.o	39adb205d58c8eff
+14	157	1789489694574436838	/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/timestamp	ce9e1146c42252da
+14	157	1789489694574436838	/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/mocs_compilation.cpp	ce9e1146c42252da
+538	948	1789489460818548814	CMakeFiles/PalmVeinSystem.dir/PalmVeinSystem_autogen/mocs_compilation.cpp.o	327ffbb57d0aea1b
+6	117	1789490017808405456	PalmVeinSystem_autogen/timestamp	ce9e1146c42252da
+6	117	1789490017808405456	PalmVeinSystem_autogen/mocs_compilation.cpp	ce9e1146c42252da
+6	117	1789490017808405456	/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/timestamp	ce9e1146c42252da
+6	117	1789490017808405456	/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/mocs_compilation.cpp	ce9e1146c42252da
+118	8963	1789490017926595229	CMakeFiles/PalmVeinSystem.dir/src/ui/MainWindow.cpp.o	39adb205d58c8eff
+118	16546	1789490017925702439	CMakeFiles/PalmVeinSystem.dir/src/main.cpp.o	ad61e4976487f2fb
+16546	19668	1789490034354491035	PalmVeinSystem	afa6c9d2e19a5659

@@ -160,7 +160,6 @@
 #define __cpp_delegating_constructors 200604L
 #define __FLT32X_HAS_DENORM__ 1
 #define __INT_FAST16_TYPE__ long int
-#define __STRICT_ANSI__ 1
 #define __cpp_template_auto 201606L
 #define __LDBL_HAS_DENORM__ 1
 #define __BFLT16_EPSILON__ 7.81250000000000000000000000000000000e-3BF16
@@ -237,6 +236,7 @@
 #define __NO_INLINE__ 1
 #define __arm_out(...) [[arm::out(__VA_ARGS__)]]
 #define __DEC_EVAL_METHOD__ 2
+#define QT_NO_KEYWORDS 1
 #define __FLT_MANT_DIG__ 24
 #define __FLT16_MIN_10_EXP__ (-4)
 #define __VERSION__ "14.2.0"
@@ -292,6 +292,7 @@
 #define __ATOMIC_RELAXED 0
 #define __FLT_EVAL_METHOD_TS_18661_3__ 0
 #define __SIZEOF_LONG__ 8
+#define unix 1
 #define __cpp_guaranteed_copy_elision 201606L
 #define __LDBL_DIG__ 33
 #define __FLT64_IS_IEC_60559__ 1
@@ -332,6 +333,7 @@
 #define __FLT128_MAX__ 1.18973149535723176508575932662800702e+4932F128
 #define __INTPTR_MAX__ 0x7fffffffffffffffL
 #define __arm_inout(...) [[arm::inout(__VA_ARGS__)]]
+#define linux 1
 #define __arm_streaming [[arm::streaming]]
 #define __FLT64_HAS_QUIET_NAN__ 1
 #define __FLT64X_MIN_EXP__ (-16381)
@@ -441,9 +443,11 @@
 #define __FLT_DENORM_MIN__ 1.40129846432481707092372958328991613e-45F
 #define __INT_LEAST32_WIDTH__ 32
 #define __SIZEOF_FLOAT__ 4
+#define __GLIBCXX_BITSIZE_INT_N_0 128
 #define __ATOMIC_CONSUME 1
 #define __SIZE_MAX__ 0xffffffffffffffffUL
 #define __GNUC_MINOR__ 2
+#define __GLIBCXX_TYPE_INT_N_0 __int128
 #define __UINTMAX_MAX__ 0xffffffffffffffffUL
 #define __DEC32_MANT_DIG__ 7
 #define __FLT32X_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F32x

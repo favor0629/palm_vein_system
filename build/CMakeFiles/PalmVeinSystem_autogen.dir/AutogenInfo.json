@@ -31,15 +31,6 @@
 		"/usr/share/cmake-3.31/Modules/Platform/Linker/Linux-GNU-CXX.cmake",
 		"/usr/share/cmake-3.31/Modules/Platform/Linker/Linux-GNU.cmake",
 		"/usr/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake",
-		"/usr/share/cmake-3.31/Modules/FindPkgConfig.cmake",
-		"/usr/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake",
-		"/usr/share/cmake-3.31/Modules/FindPackageMessage.cmake",
-		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake",
-		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake",
-		"/usr/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake",
-		"/usr/share/cmake-3.31/Modules/FindPackageMessage.cmake",
-		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules.cmake",
-		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6/Qt6Config.cmake",
@@ -231,7 +222,16 @@
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsAdditionalTargetInfo.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
 		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsPlugins.cmake",
-		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake"
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake",
+		"/usr/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake-3.31/Modules/FindPackageMessage.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake",
+		"/usr/share/cmake-3.31/Modules/FindPkgConfig.cmake",
+		"/usr/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake-3.31/Modules/FindPackageMessage.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/favor/PalmVeinSystem",
 	"CROSS_CONFIG" : false,
@@ -246,16 +246,28 @@
 			null
 		],
 		[
+			"/home/favor/PalmVeinSystem/src/ui/CapturePage.h",
+			"MU",
+			"YPKJ5OE7LN/moc_CapturePage.cpp",
+			null
+		],
+		[
 			"/home/favor/PalmVeinSystem/src/ui/MainWindow.h",
 			"MU",
 			"YPKJ5OE7LN/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/favor/PalmVeinSystem/src/ui/ShowImagePage.h",
+			"MU",
+			"YPKJ5OE7LN/moc_ShowImagePage.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/include",
 	"MOC_COMPILATION_FILE" : "/home/favor/PalmVeinSystem/build/PalmVeinSystem_autogen/mocs_compilation.cpp",
-	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_WIDGETS_LIB" ],
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_KEYWORDS", "QT_WIDGETS_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
 		[
@@ -266,8 +278,8 @@
 	"MOC_INCLUDES" : 
 	[
 		"/home/favor/PalmVeinSystem/src",
-		"/usr/include/opencv4",
 		"/usr/include/libcamera",
+		"/usr/include/opencv4",
 		"/usr/include/aarch64-linux-gnu/qt6/QtWidgets",
 		"/usr/include/aarch64-linux-gnu/qt6",
 		"/usr/include/aarch64-linux-gnu/qt6/QtCore",
@@ -295,7 +307,7 @@
 	"MOC_PREDEFS_CMD" : 
 	[
 		"/usr/bin/aarch64-linux-gnu-g++",
-		"-std=c++17",
+		"-std=gnu++17",
 		"-dM",
 		"-E",
 		"-c",
@@ -316,7 +328,9 @@
 	[
 		[ "/home/favor/PalmVeinSystem/src/camera/CameraManager.cpp", "MU", null ],
 		[ "/home/favor/PalmVeinSystem/src/main.cpp", "MU", null ],
-		[ "/home/favor/PalmVeinSystem/src/ui/MainWindow.cpp", "MU", null ]
+		[ "/home/favor/PalmVeinSystem/src/ui/CapturePage.cpp", "MU", null ],
+		[ "/home/favor/PalmVeinSystem/src/ui/MainWindow.cpp", "MU", null ],
+		[ "/home/favor/PalmVeinSystem/src/ui/ShowImagePage.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

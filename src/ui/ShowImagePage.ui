@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ShowImagePage</class>
+ <widget class="QWidget" name="ShowImagePage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+    <property name="windowTitle">
+     <string>View Images</string>
+    </property>
+    <layout class="QVBoxLayout" name="showImagePageLayout">
+     <property name="spacing">
+        <number>12</number>
+     </property>
+     <property name="leftMargin">
+        <number>24</number>
+     </property>
+     <property name="topMargin">
+        <number>20</number>
+     </property>
+     <property name="rightMargin">
+        <number>24</number>
+     </property>
+     <property name="bottomMargin">
+        <number>20</number>
+     </property>
+     <item>
+        <widget class="QLabel" name="label_show_image">
+         <property name="minimumSize">
+            <size>
+             <width>320</width>
+             <height>260</height>
+            </size>
+         </property>
+         <property name="text">
+            <string>No captured images</string>
+         </property>
+         <property name="alignment">
+            <set>Qt::AlignCenter</set>
+         </property>
+         <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+         </property>
+         <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>1</verstretch>
+            </sizepolicy>
+         </property>
+        </widget>
+     </item>
+     <item>
+        <widget class="QPushButton" name="button_exit">
+         <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>42</height>
+            </size>
+         </property>
+         <property name="text">
+            <string>Back</string>
+         </property>
+        </widget>
+     </item>
+    </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -67,18 +67,18 @@ add_executable(PalmVeinSystem
     # CapturePage
     # --------------------------------------------------------
 
-    src/ui/CapturePage.cpp
-    src/ui/CapturePage.h
-    src/ui/CapturePage.ui
+    src/ui/page/CapturePage.cpp
+    src/ui/page/CapturePage.h
+    src/ui/page/CapturePage.ui
 
 
     # --------------------------------------------------------
     # ShowImagePage
     # --------------------------------------------------------
 
-    src/ui/ShowImagePage.cpp
-    src/ui/ShowImagePage.h
-    src/ui/ShowImagePage.ui
+    src/ui/page/ShowImagePage.cpp
+    src/ui/page/ShowImagePage.h
+    src/ui/page/ShowImagePage.ui
 
 
     # --------------------------------------------------------

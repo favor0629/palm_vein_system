@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_PalmVeinSystem_FILE /home/favor/PalmVeinSystem/build/PalmVeinSystem)
-set(__QT_DEPLOY_TARGET_PalmVeinSystem_TYPE EXECUTABLE)

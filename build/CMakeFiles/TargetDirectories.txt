@@ -1,5 +1,0 @@
-/home/favor/PalmVeinSystem/build/CMakeFiles/PalmVeinSystem.dir
-/home/favor/PalmVeinSystem/build/CMakeFiles/edit_cache.dir
-/home/favor/PalmVeinSystem/build/CMakeFiles/rebuild_cache.dir
-/home/favor/PalmVeinSystem/build/CMakeFiles/PalmVeinSystem_autogen_timestamp_deps.dir
-/home/favor/PalmVeinSystem/build/CMakeFiles/PalmVeinSystem_autogen.dir

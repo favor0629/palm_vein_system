@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include "../camera/CameraManager.h"
+#include "../../camera/CameraManager.h"
 
 namespace Ui
 {

@@ -1,6 +1,7 @@
 #ifndef SHOWIMAGEPAGE_H
 #define SHOWIMAGEPAGE_H
 
+#include <QString>
 #include <QWidget>
 
 namespace Ui
@@ -27,8 +28,17 @@ private Q_SLOTS:
 
     void onBackClicked();
 
+    // 浏览图片
+    void onBrowseClicked();
+
 private:
 
+    // 获取图片目录
+    QString getImageDirectory() const;
+
+    // 显示图片
+    void showImage(const QString &filePath);
+    
     Ui::ShowImagePage *ui;
 };
 

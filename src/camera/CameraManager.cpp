@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include <libcamera/formats.h>
 
@@ -55,7 +56,7 @@ CameraManager::~CameraManager()
     修改配置
         │
         ├── 分辨率：1280 × 720
-        ├── PixelFormat：BGR888
+        ├── PixelFormat：RGB888
         └── BufferCount：4
         │
         ▼
@@ -226,14 +227,14 @@ bool CameraManager::initialize()
     auto& streamConfig = configuration_->at(0);
 
     /*
-     * 请求输出BGR888。
-     *  B | G | R
+    * 请求输出RGB888。
+    *  R | G | B
      *  --+---+--
      *  8   8   8 bit
-     * 这样之后OpenCV可以直接构造CV_8UC3，
-     * 不需要再进行RGB/BGR颜色空间转换。
+    * libcamera 的 RGB888 数据在转换为 OpenCV 图像时，
+    * 需要显式转换为 OpenCV 使用的 BGR 顺序。
      */
-    streamConfig.pixelFormat = libcamera::formats::BGR888;  // 摄像头输出 BGR888 格式的图像
+    streamConfig.pixelFormat = libcamera::formats::RGB888;  // 摄像头输出 RGB888 格式的图像
 
     /**
      * 设置的是“希望使用”的配置，不一定是最终实际配置，因为硬件可能不支持
@@ -254,7 +255,7 @@ bool CameraManager::initialize()
      * 作用：检查你提出的摄像头配置是否符合硬件
      * 和 libcamera pipeline 的实际能力，并在必要时调整配置
      * 
-     * BGR888 是否真的能由你的摄像头 pipeline 直接提供，
+    * RGB888 是否真的能由你的摄像头 pipeline 直接提供，
      * 需要由 validate() 和实际平台支持来决定
      */
     auto validation = configuration_->validate();
@@ -342,6 +343,33 @@ bool CameraManager::initialize()
         camera_->release();
         camera_.reset();
 
+        cameraManager_->stop();
+        cameraManager_.reset();
+
+        return false;
+    }
+
+    // configure() 可能调整像素格式、尺寸或 stride，后续必须使用最终配置。
+    const auto &finalStreamConfig = configuration_->at(0);
+    width_ = finalStreamConfig.size.width;
+    height_ = finalStreamConfig.size.height;
+    stride_ = finalStreamConfig.stride;
+    pixelFormat_ = finalStreamConfig.pixelFormat;
+
+    std::cout << "[Camera] Configured pixel format: "
+              << pixelFormat_.toString()
+              << ", stride: " << stride_
+              << std::endl;
+
+    if (pixelFormat_ != libcamera::formats::RGB888 &&
+        pixelFormat_ != libcamera::formats::BGR888)
+    {
+        std::cerr << "[Camera] Unsupported configured pixel format: "
+                  << pixelFormat_.toString() << std::endl;
+
+        configuration_.reset();
+        camera_->release();
+        camera_.reset();
         cameraManager_->stop();
         cameraManager_.reset();
 
@@ -902,12 +930,14 @@ bool CameraManager::frameBufferToMat(libcamera::FrameBuffer *buffer, cv::Mat& im
     /*
      * 当前版本的实现明确要求：
      *
-     * BGR888
+    * RGB888
      * 单平面
      *
      * 这样可以直接转换成CV_8UC3。
      */
-    if (pixelFormat_ != libcamera::formats::BGR888)
+    const bool isRgb = pixelFormat_ == libcamera::formats::RGB888;
+
+    if (!isRgb && pixelFormat_ != libcamera::formats::BGR888)
     {
         std::cerr << "[Camera] Unsupported pixel format: " << pixelFormat_.toString() << std::endl;
 
@@ -934,7 +964,7 @@ bool CameraManager::frameBufferToMat(libcamera::FrameBuffer *buffer, cv::Mat& im
     }
 
     /*
-     * BGR888应该是一个plane。
+    * RGB888应该是一个plane。
      *
      * 如果实际pipeline提供多plane格式，
      * 这个基础版本不会继续处理。
@@ -1033,10 +1063,20 @@ bool CameraManager::frameBufferToMat(libcamera::FrameBuffer *buffer, cv::Mat& im
     // OpenCV 自己管理的一块新的内存
     cv::Mat result(static_cast<int>(height_), static_cast<int>(width_), CV_8UC3);
 
-    const std::size_t bytesPerPixel = 3;  // BGR888 每个像素占用 3 个字节
+    const std::size_t bytesPerPixel = 3;  // RGB888 每个像素占用 3 个字节
 
     // rowBytes：一行真正的有效图像数据有多少字节
     const std::size_t rowBytes = static_cast<std::size_t>(width_) * bytesPerPixel;
+
+    if (stride_ < rowBytes ||
+        plane.length < (static_cast<std::size_t>(height_) - 1) * stride_ + rowBytes)
+    {
+        std::cerr << "[Camera] Invalid frame layout: stride=" << stride_
+                  << ", plane length=" << plane.length << std::endl;
+
+        munmap(mapped, mapLength);
+        return false;
+    }
 
     // stride_:从这一行起始地址到下一行起始地址之间有多少字节
     for (unsigned int y = 0; y < height_; ++y)
@@ -1056,8 +1096,16 @@ bool CameraManager::frameBufferToMat(libcamera::FrameBuffer *buffer, cv::Mat& im
      * 的资源交给 image，尽量避免不必要的数据复制。
      * 不是把图像数据再复制一遍。它是把 result 转换为右值，从而允许移动赋值。
      */
+    // OpenCV 和 cv::imwrite 使用 BGR；只有 RGB888 需要交换通道。
+    // if (isRgb)
+    // {
+    //     cv::cvtColor(result, image, cv::COLOR_RGB2BGR);
+    // }
+    // else
+    // {
+    //     image = std::move(result);
+    // }
     image = std::move(result);
-
     return true;
 }
 

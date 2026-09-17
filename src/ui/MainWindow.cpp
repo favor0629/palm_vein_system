@@ -2,8 +2,8 @@
 
 #include "ui_MainWindow.h"
 
-#include "CapturePage.h"
-#include "ShowImagePage.h"
+#include "page/CapturePage.h"
+#include "page/ShowImagePage.h"
 
 namespace palmvein
 {

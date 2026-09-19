@@ -9,7 +9,7 @@
 
 #include "camera/CameraManager.h"
 
-
+#include "tools/fvia.hpp"
 /**
  * qt相关
  */

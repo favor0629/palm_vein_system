@@ -42,6 +42,25 @@ pkg_check_modules(LIBCAMERA REQUIRED
 
 
 # ============================================================
+# lgpio
+# ============================================================
+
+find_path(LGPIO_INCLUDE_DIR
+    NAMES lgpio.h
+    REQUIRED
+)
+
+find_file(LGPIO_LIBRARY
+    NAMES liblgpio.so.1
+    PATHS
+        /usr/lib/aarch64-linux-gnu
+        /lib/aarch64-linux-gnu
+    NO_DEFAULT_PATH
+    REQUIRED
+)
+
+
+# ============================================================
 # Executable
 # ============================================================
 
@@ -87,6 +106,44 @@ add_executable(PalmVeinSystem
 
     src/camera/CameraManager.cpp
     src/camera/CameraManager.h
+
+
+    # --------------------------------------------------------
+    # GPIO
+    # --------------------------------------------------------
+
+    src/driver/pwm/GpioChip.hpp
+
+
+    # --------------------------------------------------------
+    # PWM driver
+    # --------------------------------------------------------
+
+    src/driver/pwm/GpioChip.cpp
+    src/driver/pwm/GpioChip.hpp
+    src/driver/pwm/IPwmChannel.hpp
+    src/driver/pwm/PwmTypes.hpp
+    src/driver/pwm/HardwarePwmChannel.cpp
+    src/driver/pwm/HardwarePwmChannel.hpp
+    src/driver/pwm/SoftwarePwmChannel.cpp
+    src/driver/pwm/SoftwarePwmChannel.hpp
+    src/driver/pwm/PwmController.cpp
+    src/driver/pwm/PwmController.hpp
+
+
+    # --------------------------------------------------------
+    # Infrared lamp
+    # --------------------------------------------------------
+
+    src/lamp/InfraredLampController.cpp
+    src/lamp/InfraredLampController.hpp
+
+
+    # --------------------------------------------------------
+    #  tools
+    # --------------------------------------------------------
+    src/tools/fvia.cpp
+    src/tools/fvia.hpp
 )
 
 
@@ -101,6 +158,8 @@ target_include_directories(PalmVeinSystem PRIVATE
     ${OpenCV_INCLUDE_DIRS}
 
     ${LIBCAMERA_INCLUDE_DIRS}
+
+    ${LGPIO_INCLUDE_DIR}
 )
 
 target_compile_definitions(PalmVeinSystem PRIVATE
@@ -129,4 +188,6 @@ target_link_libraries(PalmVeinSystem PRIVATE
     ${OpenCV_LIBS}
 
     ${LIBCAMERA_LIBRARIES}
+
+    ${LGPIO_LIBRARY}
 )

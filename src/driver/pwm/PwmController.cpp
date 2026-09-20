@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+#include "../../../test/debug.hpp"
+
 namespace rpi::pwm {
 
 PwmController::PwmController(unsigned int gpio_chip)
@@ -16,6 +18,8 @@ bool PwmController::addChannel(unsigned int id, std::unique_ptr<IPwmChannel> cha
      * This prevents adding a null channel or overwriting an existing channel with the same ID.
      */
     if (!channel || channels_.find(id) != channels_.end()) {
+        DEBUG_ERROR("PWM", "Failed to add channel " << id
+            << ": channel is null or ID already exists");
         return false;
     }
 
@@ -58,6 +62,7 @@ bool PwmController::startAll()
     {
         if (!ch->start()) 
         {
+            DEBUG_ERROR("PWM", "Failed to start PWM channel " << id);
             // Fail-safe behavior: anything we already started is turned off.
             for (auto& [startedId, startedCh] : channels_) 
             {
@@ -94,7 +99,18 @@ void PwmController::allOff() noexcept
 bool PwmController::setDutyCycle(unsigned int id, double duty_percent)
 {
     IPwmChannel* ch = channel(id);
-    return ch != nullptr && ch->setDutyCycle(duty_percent);
+    if (ch == nullptr)
+    {
+        DEBUG_ERROR("PWM", "Unknown PWM channel " << id << " while setting duty cycle");
+        return false;
+    }
+    if (!ch->setDutyCycle(duty_percent))
+    {
+        DEBUG_ERROR("PWM", "Failed to set channel " << id
+            << " duty cycle to " << duty_percent << "%");
+        return false;
+    }
+    return true;
 }
 
 bool PwmController::setFrequency(unsigned int id, std::uint32_t frequency)

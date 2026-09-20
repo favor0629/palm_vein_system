@@ -12,7 +12,7 @@ class IPwmChannel
         virtual bool start() = 0;
         virtual bool stop() = 0;
 
-        virtual bool setDutyCycle(double duty_percent) = 0;
+        virtual bool setDutyCycle(double duty_percent) = 0; //纯虚函数
         virtual bool setFrequency(std::uint32_t frequency) = 0;
 
         virtual double dutyCycle() const noexcept = 0;

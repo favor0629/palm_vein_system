@@ -12,6 +12,10 @@ namespace rpi::pwm {
 class PwmController {
 public:
     explicit PwmController(unsigned int gpio_chip = 0U);
+
+    /**
+     * PwmController 自己没有需要手动释放的 C 风格资源
+     */
     ~PwmController() = default;
 
     PwmController(const PwmController&) = delete;

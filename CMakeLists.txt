@@ -138,12 +138,29 @@ add_executable(PalmVeinSystem
     src/lamp/InfraredLampController.cpp
     src/lamp/InfraredLampController.hpp
 
+    src/lamp/AdaptiveInfraredController.cpp
+    src/lamp/AdaptiveInfraredController.hpp 
+
 
     # --------------------------------------------------------
     #  tools
     # --------------------------------------------------------
     src/tools/fvia.cpp
     src/tools/fvia.hpp
+
+
+    # --------------------------------------------------------
+    # ProcessingImage
+    # --------------------------------------------------------
+    src/ProcessingImage/ImageProcessor.cpp 
+    src/ProcessingImage/ImageProcessor.hpp
+
+
+
+    # --------------------------------------------------------
+    # Test
+    # --------------------------------------------------------
+    test/debug.hpp
 )
 
 

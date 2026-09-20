@@ -14,6 +14,8 @@
 
 #include <libcamera/formats.h>
 
+#include "../../../test/debug.hpp"
+
 
 namespace palmvein
 {
@@ -102,6 +104,7 @@ bool CameraManager::initialize()
 {
     if (initialized_)
     {
+        DEBUG_WARN("Camera", "initialize() called while camera is already initialized");
         return true;
     }
 
@@ -115,6 +118,7 @@ bool CameraManager::initialize()
 
     if (ret < 0)
     {
+        DEBUG_ERROR("Camera", "CameraManager::start failed, ret=" << ret);
         std::cerr << "[Camera] Failed to start CameraManager, ret = " << ret << std::endl;
 
         cameraManager_.reset();
@@ -126,6 +130,7 @@ bool CameraManager::initialize()
 
     if (cameras.empty())
     {
+        DEBUG_ERROR("Camera", "No camera detected");
         std::cerr << "[Camera] No camera detected." << std::endl;
 
         cameraManager_->stop();
@@ -144,6 +149,7 @@ bool CameraManager::initialize()
     // 摄像头获取失败
     if (!camera_)
     {
+        DEBUG_ERROR("Camera", "Camera list returned a null camera");
         std::cerr << "[Camera] Failed to get camera." << std::endl;
 
         cameraManager_->stop();
@@ -165,6 +171,7 @@ bool CameraManager::initialize()
 
     if (ret < 0)
     {
+        DEBUG_ERROR("Camera", "Failed to acquire camera, ret=" << ret);
         std::cerr << "[Camera] Failed to acquire camera, ret = " << ret << std::endl;
 
         camera_.reset();
@@ -1183,6 +1190,7 @@ bool CameraManager::startPreview()
 {
     if(!initialized_)
     {
+    DEBUG_ERROR("Camera", "Cannot start preview before initialize()");
         std::cerr << "[Camera] Camera has not been initialized." << std::endl;
 
         return false;
@@ -1190,6 +1198,7 @@ bool CameraManager::startPreview()
 
     if(!camera_ || !stream_ || !allocator_)
     {
+        DEBUG_ERROR("Camera", "Preview resources are invalid");
         std::cerr<< "[Camera] Camera resources are invalid." << std::endl;
 
         return false;
@@ -1209,6 +1218,7 @@ bool CameraManager::startPreview()
 
     if(buffers.empty())
     {
+        DEBUG_ERROR("Camera", "No frame buffers available for preview");
         std::cerr<< "[Camera] No frame buffers available." << std::endl;
 
         return false;   
@@ -1231,6 +1241,7 @@ bool CameraManager::startPreview()
 
         if(!request)
         {
+            DEBUG_ERROR("Camera", "Failed to create preview request");
             std::cerr << "[Camera] Failed to create request." << std::endl;
 
             requests_.clear();
@@ -1246,6 +1257,7 @@ bool CameraManager::startPreview()
 
         if(ret < 0)
         {
+            DEBUG_ERROR("Camera", "Failed to bind buffer to preview request, ret=" << ret);
             std::cerr << "[Camera] Failed to add buffer to request, ret = " << ret << std::endl;
 
             requests_.clear();
@@ -1281,6 +1293,7 @@ bool CameraManager::startPreview()
     int ret = camera_->start();
     if (ret < 0)
     {
+        DEBUG_ERROR("Camera", "Failed to start camera preview, ret=" << ret);
         std::cerr<< "[Camera] Failed to start camera, ret = " << ret << std::endl;
 
         previewRunning_.store(false);
@@ -1298,6 +1311,7 @@ bool CameraManager::startPreview()
         ret = camera_->queueRequest(request.get());
         if (ret < 0)
         {
+            DEBUG_ERROR("Camera", "Failed to queue preview request, ret=" << ret);
             std::cerr << "[Camera] Failed to queue request, ret = " << ret << std::endl;
 
             previewRunning_.store(false);
@@ -1319,6 +1333,7 @@ void CameraManager::requestComplete(libcamera::Request *request)
 {
     if (!request)
     {
+        DEBUG_ERROR("Camera", "requestComplete received a null request");
         return;
     }
 
@@ -1343,6 +1358,7 @@ void CameraManager::requestComplete(libcamera::Request *request)
      */
     if (request->status() != libcamera::Request::RequestComplete)
     {
+        DEBUG_WARN("Camera", "A camera request was cancelled or incomplete");
         std::cerr << "[Camera] Request was not completed normally." << std::endl;
 
         return;
@@ -1356,6 +1372,7 @@ void CameraManager::requestComplete(libcamera::Request *request)
 
     if (buffers.empty())
     {
+        DEBUG_ERROR("Camera", "Completed request contains no buffer");
         std::cerr << "[Camera] Completed request contains no buffer." << std::endl;
 
         return;
@@ -1412,6 +1429,7 @@ void CameraManager::requestComplete(libcamera::Request *request)
             }
             else
             {
+                DEBUG_ERROR("Camera", "Failed to convert frame buffer to cv::Mat");
                 std::cerr << "[Camera] Failed to convert FrameBuffer to Mat." << std::endl;
             }
         }
@@ -1450,6 +1468,7 @@ void CameraManager::requestComplete(libcamera::Request *request)
 
     if (ret < 0)
     {
+        DEBUG_ERROR("Camera", "Failed to requeue preview request, ret=" << ret);
         std::cerr << "[Camera] Failed to requeue request, ret = " << ret << std::endl;
 
         previewRunning_.store(false);
@@ -1463,6 +1482,7 @@ bool CameraManager::getLatestFrame(cv::Mat &image)
 
     if (!previewRunning_.load())
     {
+        DEBUG_WARN("Camera", "captureImage called while preview is stopped");
         return false;
     }
 
@@ -1515,6 +1535,7 @@ bool CameraManager::captureImage(const std::string &filePath)
 
         if (latestFrame_.empty())
         {
+            DEBUG_WARN("Camera", "captureImage called before the first valid frame arrived");
             std::cerr << "[Camera] No frame available." << std::endl;
 
             return false;
@@ -1531,6 +1552,7 @@ bool CameraManager::captureImage(const std::string &filePath)
      */
     if (!cv::imwrite(filePath, image))
     {
+        DEBUG_ERROR("Camera", "Failed to save image: " << filePath);
         std::cerr << "[Camera] Failed to save image: " << filePath << std::endl;
 
         return false;

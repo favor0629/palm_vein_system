@@ -7,8 +7,9 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "../../test/debug.hpp"
 
-#define GRAY_NUMBER     256
+constexpr unsigned int GRAY_NUMBER = 256;
 /**
  * @brief 计算图像熵
  *
@@ -20,12 +21,14 @@ double calculateEntropy(const cv::Mat &gray)
 {
     if(gray.empty())
     {
+        DEBUG_ERROR("FVIA", "Entropy input is empty");
         throw std::invalid_argument("Input image is empty");
     }
 
     // 判断图片是否为CV_8UC1 灰度图像
     if(gray.type() != CV_8UC1)
     {
+        DEBUG_ERROR("FVIA", "Entropy input must be CV_8UC1, actual type=" << gray.type());
         throw std::invalid_argument("Entropy calculation requires CV_8UC1 image.");
     }
 
@@ -65,6 +68,51 @@ double calculateEntropy(const cv::Mat &gray)
 
 
 /**
+ * @brief 计算平均灰度
+ *
+ * G = 1/N * sum(x_i)
+ *
+ * 
+ */
+double calculateMean(const cv::Mat &gray)
+{
+    if (gray.empty())
+    {
+        DEBUG_ERROR("FVIA", "Mean input is empty");
+        throw std::invalid_argument("Input image is empty.");
+    }
+
+    if (gray.type() != CV_8UC1)
+    {
+        DEBUG_ERROR("FVIA", "Mean input must be CV_8UC1, actual type=" << gray.type());
+        throw std::invalid_argument("Mean/variance calculation requires CV_8UC1 image.");
+    }
+
+    const int rows = gray.rows;
+    const int cols = gray.cols;
+    const uint64_t total_pixels = static_cast<uint64_t>(rows) * static_cast<uint64_t>(cols);
+
+    uint64_t sum = 0;
+
+    for(int y = 0; y < rows; ++y)
+    {
+        const uchar *row = gray.ptr<uchar>(y);
+
+        for(int x = 0; x < cols; ++x)
+        {
+            const uint64_t value = row[x];
+
+            sum += value;
+        }
+    }
+
+
+    double mean_gray = static_cast<double>(sum) / static_cast<double>(total_pixels);
+    
+    return mean_gray;
+}
+
+/**
  * @brief 计算平均灰度和灰度方差
  *
  * G = 1/N * sum(x_i)
@@ -75,11 +123,13 @@ void calculateMeanAndVariance(const cv::Mat &gray, double &mean_gray, double &va
 {
     if (gray.empty())
     {
+        DEBUG_ERROR("FVIA", "Mean/variance input is empty");
         throw std::invalid_argument("Input image is empty.");
     }
 
     if (gray.type() != CV_8UC1)
     {
+        DEBUG_ERROR("FVIA", "Mean/variance input must be CV_8UC1, actual type=" << gray.type());
         throw std::invalid_argument("Mean/variance calculation requires CV_8UC1 image.");
     }
 
@@ -133,6 +183,7 @@ double calculateFN(const double mean_gray,const double T = T_VAR)
 {
     if(T < 0.0 || T >= 256.0)
     {
+        DEBUG_ERROR("FVIA", "Invalid T value: " << T);
         throw std::invalid_argument("T must satisfy 0 < T < 256");
     }
 
@@ -177,6 +228,7 @@ double calculateFVIAQuality(const double entropy,
     // 这里仍然做保护。
     if(denominator <= 1e-12)
     {
+        DEBUG_ERROR("FVIA", "Quality denominator is too small");
         throw std::runtime_error("FVIA denominator is too small");
     }
 
@@ -198,11 +250,13 @@ FVIAResult_t evaluateFVIA(const cv::Mat& input_gray, const cv::Rect& roi, const 
 {
     if(input_gray.empty())
     {
+        DEBUG_ERROR("FVIA", "Evaluation input is empty");
         throw std::invalid_argument("Input image is empty.");
     }
 
     if (input_gray.type() != CV_8UC1)
     {
+        DEBUG_ERROR("FVIA", "Evaluation input must be CV_8UC1, actual type=" << input_gray.type());
         throw std::invalid_argument("Input image must be CV_8UC1.");
     }
 
@@ -212,6 +266,7 @@ FVIAResult_t evaluateFVIA(const cv::Mat& input_gray, const cv::Rect& roi, const 
         roi.y + roi.height > input_gray.rows ||
         roi.width <= 0 || roi.height <= 0)
     {
+        DEBUG_ERROR("FVIA", "Evaluation ROI is outside image boundaries");
         throw std::invalid_argument("ROI is outside image boundaries.");
     }
 

@@ -19,3 +19,5 @@ struct FVIAResult_t
 
 FVIAResult_t evaluateFVIA(const cv::Mat &input_gray, const cv::Rect &roi, const double T);
 
+double calculateMean(const cv::Mat &gray);
+
